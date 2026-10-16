@@ -1,0 +1,19 @@
+{
+  "entity": {
+    "binary_sensor": {
+      "heat_demand": {"default": "mdi:radiator"},
+      "boiler_demand": {"default": "mdi:fire"}
+    },
+    "sensor": {
+      "demand_reason": {"default": "mdi:help-circle-outline"},
+      "temperature_deficit": {"default": "mdi:thermometer-minus"},
+      "heating_time_today": {"default": "mdi:timer-outline"},
+      "rooms_calling": {"default": "mdi:home-thermometer"},
+      "boiler_lockout_remaining": {"default": "mdi:timer-lock-outline"},
+      "boiler_on_time_today": {"default": "mdi:timer-outline"}
+    },
+    "switch": {
+      "boost": {"default": "mdi:rocket-launch"}
+    }
+  }
+}

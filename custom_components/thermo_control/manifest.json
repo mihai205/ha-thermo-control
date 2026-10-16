@@ -1,0 +1,13 @@
+{
+  "domain": "thermo_control",
+  "name": "Thermo Control",
+  "codeowners": [],
+  "config_flow": true,
+  "documentation": "https://git.moweb.ro/moweb/ha-thermo-control",
+  "integration_type": "hub",
+  "iot_class": "calculated",
+  "issue_tracker": "https://git.moweb.ro/moweb/ha-thermo-control/issues",
+  "requirements": [],
+  "single_config_entry": true,
+  "version": "0.1.0"
+}

@@ -1,0 +1,128 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Thermo Control",
+        "data": {
+          "boiler_climate": "Boiler climate entity",
+          "boiler_heat_temp": "Boiler heat temperature",
+          "boiler_idle_temp": "Boiler idle temperature",
+          "min_on_minutes": "Minimum on time (min)",
+          "min_off_minutes": "Minimum off time (min)",
+          "default_hysteresis": "Default hysteresis"
+        }
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "Thermo Control is already configured."
+    }
+  },
+  "config_subentries": {
+    "room": {
+      "step": {
+        "user": {
+          "title": "Add room",
+          "data": {
+            "name": "Room name",
+            "temp_sensors": "Temperature sensors",
+            "trvs": "Radiator valves (TRVs)",
+            "window_sensors": "Window sensors",
+            "window_delay_seconds": "Window open delay (s)",
+            "schedule": "Schedule",
+            "trv_heat_temp": "TRV heating temperature",
+            "trv_idle_temp": "TRV idle temperature",
+            "comfort_temp": "Comfort temperature",
+            "eco_temp": "Eco temperature",
+            "away_temp": "Away temperature",
+            "hysteresis": "Hysteresis override",
+            "boost_minutes": "Boost duration (min)"
+          }
+        },
+        "reconfigure": {
+          "title": "Reconfigure room",
+          "data": {
+            "name": "Room name",
+            "temp_sensors": "Temperature sensors",
+            "trvs": "Radiator valves (TRVs)",
+            "window_sensors": "Window sensors",
+            "window_delay_seconds": "Window open delay (s)",
+            "schedule": "Schedule",
+            "trv_heat_temp": "TRV heating temperature",
+            "trv_idle_temp": "TRV idle temperature",
+            "comfort_temp": "Comfort temperature",
+            "eco_temp": "Eco temperature",
+            "away_temp": "Away temperature",
+            "hysteresis": "Hysteresis override",
+            "boost_minutes": "Boost duration (min)"
+          }
+        }
+      },
+      "abort": {
+        "reconfigure_successful": "Room updated."
+      },
+      "initiate_flow": {
+        "user": "Add room",
+        "reconfigure": "Reconfigure room"
+      },
+      "entry_type": "Room"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Thermo Control",
+        "data": {
+          "boiler_climate": "Boiler climate entity",
+          "boiler_heat_temp": "Boiler heat temperature",
+          "boiler_idle_temp": "Boiler idle temperature",
+          "min_on_minutes": "Minimum on time (min)",
+          "min_off_minutes": "Minimum off time (min)",
+          "default_hysteresis": "Default hysteresis"
+        }
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "heat_demand": {
+        "name": "Heat demand"
+      },
+      "boiler_demand": {
+        "name": "Boiler demand"
+      }
+    },
+    "sensor": {
+      "demand_reason": {
+        "name": "Demand reason",
+        "state": {
+          "heating": "Heating",
+          "satisfied": "Satisfied",
+          "window": "Window open",
+          "off": "Off",
+          "no_sensor": "No sensor",
+          "boost": "Boost"
+        }
+      },
+      "temperature_deficit": {
+        "name": "Temperature deficit"
+      },
+      "heating_time_today": {
+        "name": "Heating time today"
+      },
+      "rooms_calling": {
+        "name": "Rooms calling"
+      },
+      "boiler_lockout_remaining": {
+        "name": "Boiler lockout remaining"
+      },
+      "boiler_on_time_today": {
+        "name": "Boiler on time today"
+      }
+    },
+    "switch": {
+      "boost": {
+        "name": "Boost"
+      }
+    }
+  }
+}
