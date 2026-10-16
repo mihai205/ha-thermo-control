@@ -334,6 +334,7 @@ class ThermoCoordinator:
         self._listeners: list[CALLBACK_TYPE] = []
         self._unsubs: list[CALLBACK_TYPE] = []
         self._boiler_timer: CALLBACK_TYPE | None = None
+        self._unsub_started: CALLBACK_TYPE | None = None
         self._started = False
         self._stopped = False
         self.boiler_heating = False
@@ -418,8 +419,8 @@ class ThermoCoordinator:
             self._started = True
             self.async_evaluate()
         else:
-            self._unsubs.append(
-                self.hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STARTED, self._handle_started)
+            self._unsub_started = self.hass.bus.async_listen_once(
+                EVENT_HOMEASSISTANT_STARTED, self._handle_started
             )
 
     @callback
@@ -429,6 +430,9 @@ class ThermoCoordinator:
         for unsub in self._unsubs:
             unsub()
         self._unsubs.clear()
+        if self._unsub_started is not None:
+            self._unsub_started()
+            self._unsub_started = None
         if self._boiler_timer is not None:
             self._boiler_timer()
             self._boiler_timer = None
@@ -438,6 +442,8 @@ class ThermoCoordinator:
 
     @callback
     def _handle_started(self, _event: Event) -> None:
+        # One-time listener already removed itself; don't cancel it again on unload.
+        self._unsub_started = None
         self._started = True
         self.async_evaluate()
 
