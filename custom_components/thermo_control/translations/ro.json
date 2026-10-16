@@ -1,0 +1,128 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Thermo Control",
+        "data": {
+          "boiler_climate": "Entitate climate centrală",
+          "boiler_heat_temp": "Temperatură centrală la încălzire",
+          "boiler_idle_temp": "Temperatură centrală în repaus",
+          "min_on_minutes": "Timp minim pornit (min)",
+          "min_off_minutes": "Timp minim oprit (min)",
+          "default_hysteresis": "Histerezis implicit"
+        }
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "Thermo Control este deja configurat."
+    }
+  },
+  "config_subentries": {
+    "room": {
+      "step": {
+        "user": {
+          "title": "Adaugă cameră",
+          "data": {
+            "name": "Numele camerei",
+            "temp_sensors": "Senzori de temperatură",
+            "trvs": "Capete termostatice (TRV)",
+            "window_sensors": "Senzori de fereastră",
+            "window_delay_seconds": "Întârziere fereastră deschisă (s)",
+            "schedule": "Program",
+            "trv_heat_temp": "Temperatură TRV la încălzire",
+            "trv_idle_temp": "Temperatură TRV în repaus",
+            "comfort_temp": "Temperatură confort",
+            "eco_temp": "Temperatură eco",
+            "away_temp": "Temperatură plecat",
+            "hysteresis": "Histerezis personalizat",
+            "boost_minutes": "Durată boost (min)"
+          }
+        },
+        "reconfigure": {
+          "title": "Reconfigurează camera",
+          "data": {
+            "name": "Numele camerei",
+            "temp_sensors": "Senzori de temperatură",
+            "trvs": "Capete termostatice (TRV)",
+            "window_sensors": "Senzori de fereastră",
+            "window_delay_seconds": "Întârziere fereastră deschisă (s)",
+            "schedule": "Program",
+            "trv_heat_temp": "Temperatură TRV la încălzire",
+            "trv_idle_temp": "Temperatură TRV în repaus",
+            "comfort_temp": "Temperatură confort",
+            "eco_temp": "Temperatură eco",
+            "away_temp": "Temperatură plecat",
+            "hysteresis": "Histerezis personalizat",
+            "boost_minutes": "Durată boost (min)"
+          }
+        }
+      },
+      "abort": {
+        "reconfigure_successful": "Camera a fost actualizată."
+      },
+      "initiate_flow": {
+        "user": "Adaugă cameră",
+        "reconfigure": "Reconfigurează camera"
+      },
+      "entry_type": "Cameră"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Thermo Control",
+        "data": {
+          "boiler_climate": "Entitate climate centrală",
+          "boiler_heat_temp": "Temperatură centrală la încălzire",
+          "boiler_idle_temp": "Temperatură centrală în repaus",
+          "min_on_minutes": "Timp minim pornit (min)",
+          "min_off_minutes": "Timp minim oprit (min)",
+          "default_hysteresis": "Histerezis implicit"
+        }
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "heat_demand": {
+        "name": "Cerere de căldură"
+      },
+      "boiler_demand": {
+        "name": "Cerere centrală"
+      }
+    },
+    "sensor": {
+      "demand_reason": {
+        "name": "Motiv cerere",
+        "state": {
+          "heating": "Încălzire",
+          "satisfied": "Satisfăcut",
+          "window": "Fereastră deschisă",
+          "off": "Oprit",
+          "no_sensor": "Fără senzor",
+          "boost": "Boost"
+        }
+      },
+      "temperature_deficit": {
+        "name": "Deficit de temperatură"
+      },
+      "heating_time_today": {
+        "name": "Timp de încălzire azi"
+      },
+      "rooms_calling": {
+        "name": "Camere care cer căldură"
+      },
+      "boiler_lockout_remaining": {
+        "name": "Blocare centrală rămasă"
+      },
+      "boiler_on_time_today": {
+        "name": "Timp centrală pornită azi"
+      }
+    },
+    "switch": {
+      "boost": {
+        "name": "Boost"
+      }
+    }
+  }
+}
