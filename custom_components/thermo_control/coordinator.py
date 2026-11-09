@@ -39,6 +39,8 @@ from .const import (
     CONF_MIN_ON_MINUTES,
     CONF_SCHEDULE,
     CONF_TEMP_SENSORS,
+    CONF_LIMITED_TRV_OFFSET,
+    CONF_LIMITED_TRVS,
     CONF_TRV_HEAT_TEMP,
     CONF_TRV_IDLE_TEMP,
     CONF_TRVS,
@@ -53,6 +55,7 @@ from .const import (
     DEFAULT_HYSTERESIS,
     DEFAULT_MIN_OFF_MINUTES,
     DEFAULT_MIN_ON_MINUTES,
+    DEFAULT_LIMITED_TRV_OFFSET,
     DEFAULT_TRV_HEAT_TEMP,
     DEFAULT_TRV_IDLE_TEMP,
     DEFAULT_WINDOW_DELAY,
@@ -96,6 +99,10 @@ class Room:
         data = subentry.data
         self.temp_sensors: list[str] = list(data.get(CONF_TEMP_SENSORS, []))
         self.trvs: list[str] = list(data.get(CONF_TRVS, []))
+        self.limited_trvs: set[str] = set(data.get(CONF_LIMITED_TRVS, []))
+        self.limited_offset: float = float(
+            data.get(CONF_LIMITED_TRV_OFFSET, DEFAULT_LIMITED_TRV_OFFSET)
+        )
         self.window_sensors: list[str] = list(data.get(CONF_WINDOW_SENSORS, []))
         self.window_delay: float = float(data.get(CONF_WINDOW_DELAY, DEFAULT_WINDOW_DELAY))
         self.schedule: str | None = data.get(CONF_SCHEDULE) or None
@@ -302,15 +309,17 @@ class Room:
         )
         self._acct_on = self.demand
 
-    def desired_trv_temperature(self) -> float:
-        """TRV setpoint for the current demand."""
-        return trv_setpoint(self.demand, self.reason, self.target, self.trv_heat, self.trv_idle)
+    def desired_trv_temperature(self, trv: str | None = None) -> float:
+        """TRV setpoint for the current demand (limited TRVs get a lower one)."""
+        limit = self.limited_offset if trv is not None and trv in self.limited_trvs else None
+        return trv_setpoint(
+            self.demand, self.reason, self.target, self.trv_heat, self.trv_idle, limit
+        )
 
     def apply_trvs(self) -> None:
         """Send setpoints to TRVs that differ."""
-        desired = self.desired_trv_temperature()
         for trv in self.trvs:
-            self.coordinator.set_climate_temperature(trv, desired)
+            self.coordinator.set_climate_temperature(trv, self.desired_trv_temperature(trv))
 
     def shutdown(self) -> None:
         """Cancel timers."""

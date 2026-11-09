@@ -41,6 +41,7 @@ Home Assistant custom integration for multi-room heating with thermostatic radia
    - Window sensors and window delay
    - Optional Schedule helper
    - TRV heat and idle temperatures
+   - Optional limited TRVs and their offset (see below)
    - Preset temperatures
    - Hysteresis
    - Boost duration in minutes
@@ -58,6 +59,7 @@ Home Assistant custom integration for multi-room heating with thermostatic radia
 **TRV setpoint**
 
 - Room has demand: TRV set to the heat temperature.
+- Limited TRV (heating): set to target + offset (default 2 °C), never above the heat temperature. Use this for a radiator in a room with several that should not get as hot.
 - Room satisfied: TRV set to target + 1.
 - Otherwise: TRV set to the idle temperature.
 
