@@ -37,9 +37,22 @@ def compute_demand(
     return False, REASON_SATISFIED
 
 
-def trv_setpoint(demand: bool, reason: str, target: float, heat: float, idle: float) -> float:
-    """Return the temperature to command on a TRV."""
+def trv_setpoint(
+    demand: bool,
+    reason: str,
+    target: float,
+    heat: float,
+    idle: float,
+    limit_offset: float | None = None,
+) -> float:
+    """Return the temperature to command on a TRV.
+
+    When ``limit_offset`` is given (a "limited" TRV), the heating setpoint is
+    target + offset instead of the full heat temperature, never above ``heat``.
+    """
     if demand:
+        if limit_offset is not None:
+            return float(min(heat, target + limit_offset))
         return float(heat)
     if reason == REASON_SATISFIED:
         return float(target) + 1.0

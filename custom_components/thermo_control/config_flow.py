@@ -33,6 +33,8 @@ from .const import (
     CONF_DEFAULT_HYSTERESIS,
     CONF_ECO_TEMP,
     CONF_HYSTERESIS,
+    CONF_LIMITED_TRV_OFFSET,
+    CONF_LIMITED_TRVS,
     CONF_MIN_OFF_MINUTES,
     CONF_MIN_ON_MINUTES,
     CONF_NAME,
@@ -50,6 +52,7 @@ from .const import (
     DEFAULT_COMFORT_TEMP,
     DEFAULT_ECO_TEMP,
     DEFAULT_HYSTERESIS,
+    DEFAULT_LIMITED_TRV_OFFSET,
     DEFAULT_MIN_OFF_MINUTES,
     DEFAULT_MIN_ON_MINUTES,
     DEFAULT_TRV_HEAT_TEMP,
@@ -112,6 +115,12 @@ def _room_schema() -> vol.Schema:
             ),
             vol.Required(CONF_TRVS): EntitySelector(
                 EntitySelectorConfig(domain="climate", multiple=True)
+            ),
+            vol.Optional(CONF_LIMITED_TRVS): EntitySelector(
+                EntitySelectorConfig(domain="climate", multiple=True)
+            ),
+            vol.Required(CONF_LIMITED_TRV_OFFSET, default=DEFAULT_LIMITED_TRV_OFFSET): _num(
+                0, 10, 0.5, "°C"
             ),
             vol.Optional(CONF_WINDOW_SENSORS): EntitySelector(
                 EntitySelectorConfig(domain="binary_sensor", multiple=True)

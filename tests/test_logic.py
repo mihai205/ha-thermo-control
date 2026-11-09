@@ -100,3 +100,16 @@ def test_boiler_turn_off_blocked_waits_remaining():
 def test_boiler_zero_lockouts():
     assert boiler_action(True, False, 0, 0, 0) == ("heat", 0)
     assert boiler_action(False, True, 0, 0, 0) == ("idle", 0)
+
+
+def test_trv_setpoint_limited_uses_target_plus_offset():
+    assert trv_setpoint(True, "heating", 21.0, 28.0, 16.5, limit_offset=2.0) == 23.0
+
+
+def test_trv_setpoint_limited_never_exceeds_heat():
+    assert trv_setpoint(True, "heating", 27.0, 28.0, 16.5, limit_offset=2.0) == 28.0
+
+
+def test_trv_setpoint_limited_unchanged_when_not_heating():
+    assert trv_setpoint(False, "satisfied", 20.5, 28.0, 16.5, limit_offset=2.0) == 21.5
+    assert trv_setpoint(False, "off", 21.0, 28.0, 16.5, limit_offset=2.0) == 16.5
